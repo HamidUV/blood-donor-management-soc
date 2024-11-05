@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <title>SOC Blood Bank</title>
+  <style>
+    .total-donors {
+      background-color: #dde0e3;
+      border: 0.5px solid #343a40;
+      border-radius: 2px;
+      padding: 10px;
+      margin-bottom: 20px;
+      font-family: 'Times New Roman', Times, serif;
+      color: #343a40;
+    }
+    .plus-button {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 30px;
+    }
+    .text-center {
+      margin-bottom: 40px;
+    }
+    .upload-form {
+      margin-top: 50px;
+    }
+    .search-form {
+      margin-bottom: 20px;
+    }
+    .btn-lg {
+      padding: 12px 24px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container mt-5">
+    
+    <!-- Plus Button in top-right corner -->
+    <div class="plus-button">
+      <a href="/upload" class="btn btn-success" title="Upload Donor Data">
+        <span>&#43;</span>
+      </a>
+    </div>
+
+    <!-- Centered title for the Blood Bank -->
+    <div class="text-center">
+      <h1>SOC BLOOD BANK</h1>
+    </div>
+
+    <!-- Full-width section for Total Donors -->
+    <div class="total-donors text-center">
+      <h3>TOTAL DONORS: <%= totalDonors || 0 %></h3>
+    </div>
+
+    <!-- Search Form -->
+    <form action="/filter" method="get" class="search-form mb-4">
+      <div class="form-row">
+        <div class="col-md-4 mb-3">
+          <input type="text" name="bloodGroup" class="form-control" placeholder="Blood Group" value="<%= bloodGroup || '' %>">
+        </div>
+        <div class="col-md-4 mb-3">
+          <input type="text" name="district" class="form-control" placeholder="District" value="<%= district || '' %>">
+        </div>
+        <div class="col-md-4 mb-3">
+          <button type="submit" class="btn btn-primary btn-md btn-block">Search Donors</button>
+        </div>
+      </div>
+    </form>
+
+    <!-- Blood Group Cards in Grid -->
+    <div class="row">
+      <% const bloodGroupList = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']; %>
+
+      <% bloodGroupList.forEach(groupName => { %>
+        <% const group = bloodGroups.find(g => g._id === groupName) || { _id: groupName, count: 0 }; %>
+
+        <div class="col-md-3">
+          <div class="card text-center mb-4">
+            <div class="card-body">
+              <h5 class="card-title"><%= group._id %></h5>
+              <p class="card-text">Donors: <%= group.count %></p>
+              <a href="/filter?bloodGroup=<%= encodeURIComponent(group._id) %>" class="btn btn-primary">View Donors</a>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+
+    <div class="text-center mt-4">
+      <a href="/add" class="btn btn-success">Add New Donor</a>
+    </div>
+  </div>
+</body>
+</html>

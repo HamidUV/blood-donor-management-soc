@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <title>Donors in Blood Group</title>
+  <style>
+    .container {
+      max-width: 1200px;
+    }
+    .table {
+      margin-top: 20px;
+    }
+    .table th, .table td {
+      text-align: center;
+    }
+    .card {
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .btn {
+      margin: 5px;
+    }
+    .search-form {
+      text-align: center;
+    }
+    .search-form .form-row {
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container mt-5">
+    <h1 class="text-center mb-4">Donors in <span class="text-danger"><%= bloodGroup %></span> Blood Group</h1>
+
+    <!-- Search Form -->
+    <form action="/filter" method="get" class="search-form">
+      <div class="form-row">
+        <div class="col-md-4 mb-3">
+          <input type="text" name="bloodGroup" class="form-control" placeholder="Blood Group" value="<%= bloodGroup || '' %>">
+        </div>
+        <div class="col-md-4 mb-3">
+          <input type="text" name="district" class="form-control" placeholder="District" value="<%= district || '' %>">
+        </div>
+        <div class="col-md-4 mb-3">
+          <button type="submit" class="btn btn-primary btn-block">Search</button>
+        </div>
+      </div>
+    </form>
+
+    <% if (donors.length > 0) { %> 
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Phone</th>
+              <!-- <th scope="col">Email</th> -->
+              <th scope="col">Blood Group</th>
+              <th scope="col">Place</th>
+              <th scope="col">District</th>
+              <th scope="col">Age</th>
+              <th scope="col">Last Donation</th>
+              <th scope="col">Next Eligible Date</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% donors.forEach(donor => { %>
+              <tr>
+                <td><%= donor.name %></td>
+                <td><%= donor.phone %></td>
+                <!-- <td><%= donor.email %></td> -->
+                <td><%= donor.bloodGroup %></td>
+                <td><%= donor.place %></td>
+                <td><%= donor.district %></td>
+                <td><%= donor.age %></td>
+                <td><%= donor.lastDonationDate ? donor.lastDonationDate.toLocaleDateString() : 'N/A' %></td>
+                <!-- <td style="<%= donor.nextEligibleDate ? (new Date(donor.nextEligibleDate) > new Date() ? 'color: red; font-weight: bold;' : 'color: green; font-weight: bold;') : 'font-weight: bold;' %>;">
+                  <%= donor.nextEligibleDate ? donor.nextEligibleDate.toLocaleDateString() : 'N/A' %>
+                </td> -->
+                <td style="<%= donor.nextEligibleDate ? (new Date(donor.nextEligibleDate) > new Date() ? 'color: red; font-weight: bold;' : 'color: green; font-weight: bold;') : 'font-weight: bold;' %>">
+                  <%= donor.nextEligibleDate ? donor.nextEligibleDate.toLocaleDateString() : 'N/A' %>
+                </td>
+                
+                
+                
+                
+                <!-- <td><%= donor.nextEligibleDate ? donor.nextEligibleDate.toLocaleDateString() : 'N/A' %></td> -->
+                <td>
+                  <!-- Log Donation Form -->
+                  <form action="/donor/donate/<%= donor._id %>" method="post" style="display: flex; align-items: center; gap: 5px;">
+                    <input type="date" name="donationDate" required style="flex: 1; min-width: 150px;">
+                    <button type="submit" class="btn btn-sm btn-dark" style="flex: 1; min-width: 150px;">Log Donation</button>
+                  </form>
+                  
+
+                  <!-- Delete Donor Form -->
+                  <!-- <form action="/donor/delete/<%= donor._id %>" method="post" style="display:inline;">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit" class="btn btn-sm btn-danger">Remove</button>
+                  </form> -->
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    <% } else { %>
+      <div class="alert alert-warning text-center">
+        No donors found for this filter.
+      </div>
+    <% } %>
+  </div>
+
+  <div class="text-center mt-4">
+    <a href="/" class="btn btn-secondary">Back to Blood Groups</a>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

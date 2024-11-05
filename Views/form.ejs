@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Donor</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <style>
+    .container {
+      max-width: 600px;
+    }
+    .form-group label {
+      font-weight: bold;
+    }
+    .btn-submit {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body> 
+  <!-- <div style="width: 100%; margin-left: 20px; margin-top: 20px;">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
+  </svg>
+</div> -->
+  <div class="container mt-5">
+    
+    <h1 class="text-center mb-4">Add New Donor</h1>
+    <form action="/add" method="POST">
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" class="form-control" name="name" id="name" required>
+      </div>
+
+      <div class="form-group">
+        <label for="phone">Phone Number:</label>
+        <input type="tel" class="form-control" name="phone" id="phone" required>
+      </div>
+
+      
+
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" class="form-control" name="email" id="email" required>
+      </div>
+
+      
+
+      <div class="form-group">
+        <label for="bloodGroup">Blood Group:</label>
+        <select class="form-control" name="bloodGroup" id="bloodGroup" required>
+          <option value="A+">A+</option>
+          <option value="A-">A-</option>
+          <option value="B+">B+</option>
+          <option value="B-">B-</option>
+          <option value="AB+">AB+</option>
+          <option value="AB-">AB-</option>
+          <option value="O+">O+</option>
+          <option value="O-">O-</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="place">Place:</label>
+        <input type="text" class="form-control" name="place" id="place" required>
+      </div>
+
+      <div class="form-group">
+        <label for="district">District:</label>
+        <input type="text" class="form-control" name="district" id="district" required>
+      </div>
+
+      <div class="form-group">
+        <label for="age">Age:</label>
+        <input type="number" class="form-control" name="age" id="age" required>
+      </div>
+
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary w-100 btn-submit">Submit</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Optional: Add Bootstrap JS and dependencies if needed -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
